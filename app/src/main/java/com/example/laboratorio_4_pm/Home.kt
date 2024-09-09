@@ -1,4 +1,5 @@
-package com.example.vista1
+package com.example.laboratorio_4_pm
+
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -14,9 +15,8 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
-import com.example.laboratorio_4_pm.R
 
-class MainActivity : ComponentActivity() {
+class Home : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -193,6 +193,3 @@ fun MainScreen() {
         }
     }
 }
-
-
-
