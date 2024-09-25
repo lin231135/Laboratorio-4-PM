@@ -3,7 +3,6 @@ package com.example.laboratorio_4_pm
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
@@ -19,42 +18,49 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.laboratorio_4_pm.ui.theme.Laboratorio4PMTheme
 
 class User : ComponentActivity() {
     @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContent {
             Laboratorio4PMTheme {
-                Scaffold(
-                    modifier = Modifier.fillMaxSize(),
-                    topBar = {
-                        TopAppBar(
-                            title = {
-                                Text(
-                                    text = "My Profile",
-                                    textAlign = TextAlign.Center,
-                                    modifier = Modifier.fillMaxWidth() // Centra el texto
-                                )
-                            },
-                            actions = {
-                                IconButton(onClick = { /* Acción de configuración */ }) {
-                                    Icon(
-                                        painter = painterResource(id = R.drawable.settings),
-                                        contentDescription = "Settings",
-                                        tint = Color(0xFF32733C)
-                                    )
-                                }
-                            }
-                        )
-                    }
-                ) { innerPadding ->
-                    ProfileScreen(modifier = Modifier.padding(innerPadding))
-                }
+                UserScreen(navController = rememberNavController())
             }
         }
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun UserScreen(navController: NavController) {
+    Scaffold(
+        modifier = Modifier.fillMaxSize(),
+        topBar = {
+            TopAppBar(
+                title = {
+                    Text(
+                        text = "My Profile",
+                        textAlign = TextAlign.Center,
+                        modifier = Modifier.fillMaxWidth()
+                    )
+                },
+                actions = {
+                    IconButton(onClick = { navController.navigate("settings") }) {
+                        Icon(
+                            painter = painterResource(id = R.drawable.settings),
+                            contentDescription = "Settings",
+                            tint = Color(0xFF32733C)
+                        )
+                    }
+                }
+            )
+        }
+    ) { innerPadding ->
+        ProfileScreen(modifier = Modifier.padding(innerPadding))
     }
 }
 
@@ -79,15 +85,13 @@ fun ProfileHeader() {
             .fillMaxWidth()
             .height(150.dp)
     ) {
-        // Imagen de fondo detrás del ícono de perfil
         Image(
-            painter = painterResource(R.drawable.background2), // Imagen de fondo
+            painter = painterResource(R.drawable.background2),
             contentDescription = "Background Image",
             contentScale = ContentScale.Crop,
             modifier = Modifier.fillMaxSize()
         )
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
-            // Imagen circular del usuario
             Image(
                 painter = painterResource(R.drawable.user),
                 contentDescription = "Profile Image",
@@ -97,8 +101,6 @@ fun ProfileHeader() {
                     .clip(CircleShape)
             )
             Spacer(modifier = Modifier.height(8.dp))
-
-            // Nombre de usuario
             Text(
                 text = "NOMBRE DE USUARIO",
                 fontSize = 18.sp,
@@ -111,17 +113,15 @@ fun ProfileHeader() {
 
 @Composable
 fun ProfileOptions() {
-    // Lista de opciones con su título, subtítulo, ícono y color hexadecimal correspondiente
     val options = listOf(
-        Quadruple("My Campus", "Campus Central", R.drawable.mycampus, Color(0xFF32733C)), // Azul
-        Quadruple("My Friends", "", R.drawable.myfriends, Color(0xFF505AE6)), // Verde
-        Quadruple("My Calendar", "", R.drawable.mycalendar, Color(0xFF5FC887)), // Rojo
-        Quadruple("My Courses", "", R.drawable.mycourses, Color(0xFFE97132)), // Morado
-        Quadruple("My Grades", "", R.drawable.mygrades, Color(0xFF505AE6)), // Amarillo
-        Quadruple("My Groups", "", R.drawable.mygroups, Color(0xFF505AE6)), // Cyan
-        Quadruple("My Upcoming Events", "", R.drawable.myupcoming, Color(0xFF5AB9C8)) // Gris
+        Quadruple("My Campus", "Campus Central", R.drawable.mycampus, Color(0xFF32733C)),
+        Quadruple("My Friends", "", R.drawable.myfriends, Color(0xFF505AE6)),
+        Quadruple("My Calendar", "", R.drawable.mycalendar, Color(0xFF5FC887)),
+        Quadruple("My Courses", "", R.drawable.mycourses, Color(0xFFE97132)),
+        Quadruple("My Grades", "", R.drawable.mygrades, Color(0xFF505AE6)),
+        Quadruple("My Groups", "", R.drawable.mygroups, Color(0xFF505AE6)),
+        Quadruple("My Upcoming Events", "", R.drawable.myupcoming, Color(0xFF5AB9C8))
     )
-
     Column {
         options.forEach { option ->
             OptionItem(
