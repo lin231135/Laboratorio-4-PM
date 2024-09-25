@@ -23,7 +23,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.laboratorio_4_pm.ui.theme.Laboratorio4PMTheme
 
-class MainActivity : ComponentActivity() {
+class Emergency : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
